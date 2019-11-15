@@ -46,13 +46,13 @@ The results object is a JSON object with property "results", which is an array o
 
 ## exircise request object
 The exircise request object is essentially the same as the results request object, with the only difference being the "exNum" parameter, specifying the exircise you wish to request and the optional "format" parameter, which can be mathjax or html and defaults to html.
-```
+```json
 {
-    id: $user,
-    passwd: $password,
-    year: $DS-Year,
-    exNum: $exNum,
-    [format: $exFormat] 
+    "id": "$use",
+    "passwd": "$password",
+    "year": "$DS-Year",
+    "exNum": "$exNum",
+    ["format": "$exFormat"] 
 
 }
 
