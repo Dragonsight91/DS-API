@@ -29,6 +29,7 @@ The results request object just holds user credentials, as they are needed to au
 }
 ```
 ## results response object
+
 The results object is a JSON object with property "results", which is an array of exircise result objects like this: 
 ```json
     {
@@ -45,7 +46,14 @@ The results object is a JSON object with property "results", which is an array o
 ```
 
 ## exircise request object
-The exircise request object is essentially the same as the results request object, with the only difference being the "exNum" parameter, specifying the exircise you wish to request and the optional "format" parameter, which can be mathjax or html and defaults to html.
+
+The exircise request object is essentially the same as the results request object, with the only difference being the "exNum" parameter, specifying the exircise you wish to request and the optional "format" parameter, which can be MathJax or html and defaults to HTML.
+
+**CAREFUL WHEN USING FORMAT, THE FORMAT IS CASE SENSITIVE**<br>
+supported values for "format" are:
+- MathJax
+- HTML (default)
+
 ```json
 {
     "id": "$use",

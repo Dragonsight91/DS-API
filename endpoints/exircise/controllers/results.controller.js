@@ -11,7 +11,7 @@ exports.get = (req, res) => {
         id: req.body.id,
         passwd: req.body.passwd,
         sheet: req.body.exNum,
-        format: (req.body.format === null) ? req.body.format : "html"
+        format: (req.body.format === null) ? req.body.format : "HTML"
     }
     const params = qs.stringify(obj);
     const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(req.body.year)}/QuerySheet`;
