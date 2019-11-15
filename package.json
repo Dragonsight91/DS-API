@@ -1,0 +1,15 @@
+{
+  "name": "ds-api",
+  "version": "1.0.0",
+  "description": "An api to give an easier way to access some data from DS",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "author": "Dragonsight91",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
