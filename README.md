@@ -14,7 +14,8 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 
 ## Request body
 ```
-request body:
+type: application/json
+method: POST
 {
     id: $user
     passwd: $password
@@ -29,7 +30,6 @@ response:
     body:
     {
         results: []
-
     }
 ```
 
