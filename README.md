@@ -58,7 +58,7 @@ The exircise request object is essentially the same as the results request objec
 
 ```
 
-## /exircise Response
+## exircise Response
 The exircise endpoint gives an HTML document back, which can be read and parsed by the browser.
 Tip: The exircise itself is inside a form in the document
 
