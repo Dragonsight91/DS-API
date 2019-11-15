@@ -1,20 +1,20 @@
 var qs = require('qs');
 var axios = require('axios');
 const jsdom = require("jsdom");
+const jsStringEscape = require('js-string-escape');
 
 
 exports.get = (req, res) => {
 
-
-    obj = {
+    // url, request object & build params because request is type x-www-form-urlencoded, not application/json
+    const obj = {
         id: req.body.id,
         passwd: req.body.passwd
     }
-    console.log(obj);
-    params = qs.stringify(obj);
-    console.log(params);
+    const params = qs.stringify(obj);
+    const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(req.body.year)}/QueryResults`;
 
-    axios.post('https://www2.math.rwth-aachen.de/DS19/QueryResults', params).then(
+    axios.post(url, params).then(
         (response) => {
             res.send(
                 getResults(response.data)
@@ -22,10 +22,13 @@ exports.get = (req, res) => {
         }
     );
 };
+
+// so you got html data, now you need a nice object you can send
 getResults = (htmlData) => {
     const arr = [];
     const dom = new jsdom.JSDOM(htmlData);
 
+    // get results table
     const table = dom.window.document.getElementsByTagName("table")[0].getElementsByTagName("tr");
 
     const pointPatt = /^(?<pts>\d{1,2})/;
