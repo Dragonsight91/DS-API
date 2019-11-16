@@ -14,7 +14,7 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 - **$user:** _your matriculation number_
 - **$passwd:** _the password you use_
 - **$DS-Year:** _year in YY format (19 for me because WS-2019)_
-- **$exNum:**  _the number of the exircise you want to request_
+- **$exNum:**  _the number of the exircise you want to request or the number of the exircise in the results table_
 - **$exDoc:** _the requested document_
 - **$exFormat** _the file format to get (html, pdf, MathJax) defaults to html_
 - **[name: $placeholder]** _optional parameter_
