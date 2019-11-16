@@ -10,7 +10,6 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 
 
 ## Placeholders used
-- **$DS-Year:** year in YY format (19 for me because WS-2019/2020)
 - **$user:** _your matriculation number_
 - **$passwd:** _the password you use_
 - **$DS-Year:** _year in YY format (19 for me because WS-2019)_
