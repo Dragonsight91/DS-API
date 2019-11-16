@@ -14,7 +14,10 @@ exports.get = (req, res) => {
     const params = qs.stringify(obj);
     const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(req.body.year)}/QueryResults`;
 
-    axios.post(url, params).then(
+    // send request and then send a response to the user based on the data we get
+    axios
+    .post(url, params)
+    .then(
         (response) => {
             res.send(
                 getResults(response.data)
@@ -23,7 +26,7 @@ exports.get = (req, res) => {
     );
 };
 
-// so you got html data, now you need a nice object you can send
+// so you got html data, now you need a nice object you can send, this is where it gets made.
 getResults = (htmlData) => {
     const arr = [];
     const dom = new jsdom.JSDOM(htmlData);
