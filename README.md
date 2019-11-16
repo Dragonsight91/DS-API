@@ -9,8 +9,9 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 - **/results**
 - **/exircise**
 
-## Placeholders used
 
+## Placeholders used
+- **$DS-Year:** year in YY format (19 for me because WS-2019/2020)
 - **$user:** _your matriculation number_
 - **$passwd:** _the password you use_
 - **$DS-Year:** _year in YY format (19 for me because WS-2019)_
@@ -18,6 +19,7 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 - **$exDoc:** _the requested document_
 - **$exFormat** _the file format to get (html, pdf, MathJax) defaults to html_
 - **[name: $placeholder]** _optional parameter_
+
 
 ## results request object
 The results request object just holds user credentials, as they are needed to authenticate against the website to fetch the data. $DS-Year is me hoping that the url itself will only change during winter semesters and keeps the "/DS[YY]/" scheme. 
@@ -65,6 +67,7 @@ supported values for "format" are:
 }
 
 ```
+
 
 ## exircise Response
 The exircise endpoint gives an HTML document back, which can be read and parsed by the browser.
