@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const config = require('./common/config/env.config.js');
+const config = require('./common/config/env.config');
 
 const ResultsRouter = require('./endpoints/results/routes.config');
+const ExirciseRouter = require('./endpoints/exircise/routes.config');
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +22,7 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 ResultsRouter.routesConfig(app);
-
+ExirciseRouter.routesConfig(app);
 
 app.listen(process.env.PORT || config.port , function () {
     console.log('app listening at port %s', config.port);
