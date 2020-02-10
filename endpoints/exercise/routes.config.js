@@ -1,7 +1,9 @@
-const ExirciseController = require('./controllers/exercise.controller');
-
+const ExerciseController = require('./controllers/exercise.controller');
 exports.routesConfig = function (app) {
     app.post('/exercise', [
-        ExirciseController.get
+        ExerciseController.get
+    ]);
+    app.post('/exercise/all', [
+        ExerciseController.bulk
     ]);
 }

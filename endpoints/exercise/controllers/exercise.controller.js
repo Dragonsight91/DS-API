@@ -3,7 +3,7 @@ var axios = require('axios');
 const jsStringEscape = require('js-string-escape');
 
 
-exports.get = (req, res) => {
+exports.single = (req, res) => {
 
     // url, request object & build params because request is type x-www-form-urlencoded, not application/json
     const obj = {
@@ -25,3 +25,7 @@ exports.get = (req, res) => {
         }
     );
 };
+
+exports.bulk = (req, res) => {
+
+}
