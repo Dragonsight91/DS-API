@@ -5,7 +5,7 @@ const config = require('./common/config/env.config');
 
 // import routes
 const ResultsRouter = require('./endpoints/results/routes.config');
-const ExirciseRouter = require('./endpoints/exircise/routes.config');
+const ExirciseRouter = require('./endpoints/exercise/routes.config');
 
 // configure the server
 app.use(function (req, res, next) {

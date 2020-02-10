@@ -1,5 +1,5 @@
 var qs = require('qs');
-var axios = require('axios');
+var axios = require('../../exercise/controllers/node_modules/axios');
 const jsdom = require("jsdom");
 const jsStringEscape = require('js-string-escape');
 
