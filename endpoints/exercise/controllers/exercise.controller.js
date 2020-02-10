@@ -27,5 +27,5 @@ exports.single = (req, res) => {
 };
 
 exports.bulk = (req, res) => {
-
+    
 }
