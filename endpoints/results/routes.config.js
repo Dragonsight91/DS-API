@@ -4,4 +4,4 @@ exports.routesConfig = (app) => {
     app.post('/results', [
         ResultsController.get
     ]);
-}
+};
