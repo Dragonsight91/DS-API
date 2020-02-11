@@ -14,9 +14,7 @@ POST /results
 ====== EXERCISE  ENDPOINTS ======
 GET  /exercise/:number
 POST /exercise/:number
- 
 
-!!!! NOT YET IMPLEMENTED !!!!
 ====== EXERCISES ENDPOINTS ======
 GET  /exercises
 POST /exercises
@@ -26,9 +24,7 @@ POST /exercises
 ## Placeholders used
 - **$user:** _your matriculation number_
 - **$passwd:** _the password you use_
-- **$DS-Year:** _year in YY format (19 for me because WS-2019)_
-- **$exNum:**  _the number of the exercise you want to request or the number of the exercise in the results table_
-- **$exFormat** _the file format to get (html, pdf, MathJax) defaults to html_
+- **$name** _a placeholder for some value_
 - **[name: $placeholder]** _optional parameter_
 
 
@@ -81,3 +77,20 @@ The Exercise endpoint has two ways to request Documents. One needs authenticatio
 
     If the File is not already cached, it will respond with a `404 Status`.
     
+## Exercises Endpoint
+The Exercises endpoint gives an array of Links and filenames to the `GET /exercise/:exNum` endpoint.
+This endpoint has both `POST` and `GET` method.
+
+## Response
+```json
+{
+    "filename": "$filename",
+    "url": "$fileURL"
+}[]
+```
+
+- ## POST /exercises
+    This Endpoint Expect the Authentication Request Object, as specified above.
+
+- ## GET /exercises
+    no Authentication Needed

