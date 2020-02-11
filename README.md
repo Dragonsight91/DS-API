@@ -4,9 +4,23 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 - API URL: https://api-rwth-ds.herokuapp.com 
 
 # Endpoints
-> **Request Type:** application/json<br>**Request method:** POST
-- **/results**
-- **/exercise**
+```
+======    ROOT  ENDPOINT   ======
+GET /   This will later respond with a nice Frontend
+
+======  RESULTS ENDPOINTS  ======
+POST /results
+
+====== EXERCISE  ENDPOINTS ======
+GET  /exercise/:number
+POST /exercise/:number
+ 
+
+!!!! NOT YET IMPLEMENTED !!!!
+====== EXERCISES ENDPOINTS ======
+GET  /exercises
+POST /exercises
+```
 
 
 ## Placeholders used
@@ -14,66 +28,56 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 - **$passwd:** _the password you use_
 - **$DS-Year:** _year in YY format (19 for me because WS-2019)_
 - **$exNum:**  _the number of the exercise you want to request or the number of the exercise in the results table_
-- **$exDoc:** _the requested document_
 - **$exFormat** _the file format to get (html, pdf, MathJax) defaults to html_
 - **[name: $placeholder]** _optional parameter_
 
 
-## results request object
-The results request object just holds user credentials, as they are needed to authenticate against the website to fetch the data. $DS-Year is me hoping that the url itself will only change during winter semesters and keeps the "/DS[YY]/" scheme. 
+## Authentication request object
+Any Endpoint that needs authentication will expect a request with `application/json` in the following.
 ```json
 {
     "id": "$user",
     "passwd": "$password",
-    "year": "$DS-Year"
+    ["year": "$DS-Year"]
 }
 ```
-## results response object
 
-The results object is a JSON object with property "results", which is an array of exercise result objects like this: 
-```json
-    {
-        "results": [
-            {
-                "exNum": "$exNum",
-                "points":{
-                    "online": "$value",
-                    "written": "$value"
-                }
-            },
-        ],
-    }
-```
+____
 
-## exercise request object
+## Results Endpoint
+The Results endpoint expects a `POST` request with the previously mentioned Authentication Request Object and gives the following response:
 
-The exercise request object is essentially the same as the results request object, with the only difference being the "exNum" parameter, specifying the exercise you wish to request and the optional "format" parameter, which can be MathJax or html and defaults to HTML.
-
-**CAREFUL WHEN USING FORMAT, THE FORMAT IS CASE SENSITIVE**<br>
-supported values for "format" are:
-- MathJax
-- HTML (default)
-
-```json
+```json 
 {
-    "id": "$use",
-    "passwd": "$password",
-    "year": "$DS-Year",
-    "exNum": "$exNum",
-    ["format": "$exFormat"] 
-
+    "results":{
+        "exNum": "$exNum",
+        "points":{
+            "online": "$value",
+            "written": "$value"
+        }
+    }[]
 }
-
 ```
 
+## Exercise Endpoint
+The Exercise endpoint has two ways to request Documents. One needs authentication and gets the file directly from the DS website, the other gets files from the server's cache.
 
-## exercise Response
-The exercise endpoint gives an HTML document back, which can be read and parsed by the browser.
-Tip: The exercise itself is inside a form in the document
+- ## POST /exercise/:exNum
+    This requires user authentication and gets the file directly from the DS server and also caches the file before sending a response.
+    
+    This endpoint uses the Authentication Request Object, with another optional `format` property.
+    The default Format, if `format` is not in the Request Object is `PDF`.
 
-```javascript
-    {
-        "results": "$ExDoc"
-    }
-```
+    ### Supported values for the `format` parameter
+    - `HTML` gives the direct HTML file from the DS server as response
+    - `MathJax` gives the direct HTML file with the MathJax 
+    - `PDF` gives the Exercise as PDF, this doesn't need to be specified, because it's the default format.
 
+    ### KNOWN ISSUE
+    `HTML` and `MathJax` have not yet been corrected for their source, CSS and Scripts WILL NOT LOAD
+
+- ## GET /exercise/:exNum
+    No authentication needed, this endpoint will load scripts from cache EXCLUSIVELY.
+
+    If the File is not already cached, it will respond with a `404 Status`.
+    
