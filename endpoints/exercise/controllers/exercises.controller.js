@@ -1,7 +1,8 @@
 const qs = require('qs');
 const fs = require('fs');
-const Path = require('path')
+const Path = require('path');
 const axios = require('axios');
+const jsdom = require('jsdom');
 const jsStringEscape = require('js-string-escape');
 
 // custom functions
@@ -15,6 +16,7 @@ exports.cache = async (req, res) => {
 
     // decontruct the request body
     const max = await misc.getCurrEx(currYear); 
+
     
     // array for document links
     let linkArr = [];
@@ -36,7 +38,7 @@ exports.cache = async (req, res) => {
     }
     
     res.send(linkArr);
-}
+};
 
 // server Endpoint
 exports.server = async (req, res) => {
@@ -44,7 +46,7 @@ exports.server = async (req, res) => {
     const currDate = new Date();
     const currYear = (currDate.getMonth() >= 8) ? currDate.getFullYear().toString().substring(-2) : (currDate.getFullYear() - 1).toString().substring(2, 5);
 
-    // decontruct the request body
+    // deconstruct the request body
     const { id, passwd, format = "PDF", year = currYear } = req.body;
     const max = await misc.getCurrEx(currYear);
     // url, request object & build params because request is type x-www-form-urlencoded, not application/json
@@ -65,7 +67,7 @@ exports.server = async (req, res) => {
         // set up file handling & response stuff
         const filename = `Ex-${jsStringEscape(i)}.pdf`;
         const path = Path.resolve("cache", filename);
-        const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
+        const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`;
 
         // does it exist? if not, download it to cache
         fs.access(path, fs.F_OK, (err) => {
@@ -100,5 +102,6 @@ exports.server = async (req, res) => {
 
     // send the link array
     res.send(linkArr);
-}
+};
+
 

@@ -8,7 +8,7 @@ exports.routesConfig = (app) => {
     ]);
     app.get('/exercise/:exNum', [
         ExerciseController.cache
-    ])
+    ]);
 
     // bulk endpoints
     app.post('/exercises', [
@@ -17,5 +17,5 @@ exports.routesConfig = (app) => {
     app.get('/exercises', [
         ExercisesController.cache
     ])
-}
+};
 //*/

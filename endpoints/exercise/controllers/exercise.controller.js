@@ -1,6 +1,6 @@
 const qs = require('qs');
 const fs = require('fs');
-const Path = require('path')
+const Path = require('path');
 const axios = require('axios');
 const jsStringEscape = require('js-string-escape');
 
@@ -81,7 +81,7 @@ exports.cache = (req, res) => {
         }
     });
 
-}
+};
 
 
 

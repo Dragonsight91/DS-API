@@ -10,7 +10,7 @@ exports.get = (req, res) => {
     const obj = {
         id: req.body.id,
         passwd: req.body.passwd
-    }
+    };
     const params = qs.stringify(obj);
     const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(req.body.year)}/QueryResults`;
 
@@ -50,7 +50,7 @@ getResults = (htmlData) => {
                 // create object
                 const obj = {
 
-                    // exircise number
+                    // exercise number
                     exNum: columns[0].innerHTML,
 
                     // points object
@@ -59,10 +59,10 @@ getResults = (htmlData) => {
                         online: (onlineVal !== null) ? onlineVal.groups.pts : 0,
                         written: (offlineVal !== null) ? offlineVal.groups.pts : 0
                     }
-                }
+                };
                 arr.push(obj);
             }
         }
     );
     return arr;
-}
+};
