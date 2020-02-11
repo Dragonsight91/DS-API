@@ -5,8 +5,31 @@ var axios = require('axios');
 const jsStringEscape = require('js-string-escape');
 
 exports.cache = (req, res) => {
+    // decontruct the request body
+    const { max = 11 } = req.body;
 
+    // array for document links
+    let linkArr = [];
+
+    for (let i = 1; i <= max; i++) {
+        // set up file handling & response stuff
+        const filename = `Ex-${jsStringEscape(i)}.pdf`;
+        const path = Path.resolve(__dirname, "cache", filename);
+        const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
+
+        // does it exist? if not, download it to cache
+        if(fs.existsSync(path)){
+            // push the link to our response array
+            linkArr.push({
+                filename: filename,
+                url: fileURL
+            });
+        }
+    }
+    res.send(linkArr);
 }
+
+
 
 exports.server = (req, res) => {
     // get current Semester in YY format, assuming that DS is WS only
@@ -57,8 +80,8 @@ exports.server = (req, res) => {
                     }
                 );
             }
-            
-            
+
+
         });
         // push the link to our response array
         linkArr.push({
