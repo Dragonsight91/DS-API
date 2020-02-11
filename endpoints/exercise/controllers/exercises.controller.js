@@ -1,17 +1,20 @@
-var qs = require('qs');
+const qs = require('qs');
 const fs = require('fs');
 const Path = require('path')
-var axios = require('axios');
-const jsdom = require("jsdom");
+const axios = require('axios');
 const jsStringEscape = require('js-string-escape');
 
+// custom functions
+const misc = require('./misc.module');
+
+// cache endpoint
 exports.cache = async (req, res) => {
     // get current Semester in YY format, assuming that DS is WS only
     const currDate = new Date();
     const currYear = (currDate.getMonth() >= 8) ? currDate.getFullYear().toString().substring(-2) : (currDate.getFullYear() - 1).toString().substring(2, 5);
 
     // decontruct the request body
-    const max = await getCurrEx(currYear); 
+    const max = await misc.getCurrEx(currYear); 
     
     // array for document links
     let linkArr = [];
@@ -35,8 +38,7 @@ exports.cache = async (req, res) => {
     res.send(linkArr);
 }
 
-
-
+// server Endpoint
 exports.server = async (req, res) => {
     // get current Semester in YY format, assuming that DS is WS only
     const currDate = new Date();
@@ -44,7 +46,7 @@ exports.server = async (req, res) => {
 
     // decontruct the request body
     const { id, passwd, format = "PDF", year = currYear } = req.body;
-    const max = await getCurrEx(currYear);
+    const max = await misc.getCurrEx(currYear);
     // url, request object & build params because request is type x-www-form-urlencoded, not application/json
     const obj = {
         id: id,
@@ -100,13 +102,3 @@ exports.server = async (req, res) => {
     res.send(linkArr);
 }
 
-const getCurrEx = async (year) => {
-    const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(year)}/exquery.html`;
-    const response = await axios.get(url);
-
-    const doc = new jsdom.JSDOM(response.data);
-    const element = doc.window.document.getElementsByTagName("form")[0].lastElementChild.lastElementChild;
-    value = element.value;
-
-    return Number(value);
-}
