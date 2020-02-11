@@ -2,23 +2,28 @@ var qs = require('qs');
 const fs = require('fs');
 const Path = require('path')
 var axios = require('axios');
+const jsdom = require("jsdom");
 const jsStringEscape = require('js-string-escape');
 
-exports.cache = (req, res) => {
-    // decontruct the request body
-    const { max = 11 } = req.body;
+exports.cache = async (req, res) => {
+    // get current Semester in YY format, assuming that DS is WS only
+    const currDate = new Date();
+    const currYear = (currDate.getMonth() >= 8) ? currDate.getFullYear().toString().substring(-2) : (currDate.getFullYear() - 1).toString().substring(2, 5);
 
+    // decontruct the request body
+    const max = await getCurrEx(currYear); 
+    
     // array for document links
     let linkArr = [];
 
     for (let i = 1; i <= max; i++) {
         // set up file handling & response stuff
         const filename = `Ex-${jsStringEscape(i)}.pdf`;
-        const path = Path.resolve(__dirname, "cache", filename);
+        const path = Path.resolve("cache", filename);
         const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
 
         // does it exist? if not, download it to cache
-        if(fs.existsSync(path)){
+        if (fs.existsSync(path)) {
             // push the link to our response array
             linkArr.push({
                 filename: filename,
@@ -26,19 +31,20 @@ exports.cache = (req, res) => {
             });
         }
     }
+    
     res.send(linkArr);
 }
 
 
 
-exports.server = (req, res) => {
+exports.server = async (req, res) => {
     // get current Semester in YY format, assuming that DS is WS only
     const currDate = new Date();
     const currYear = (currDate.getMonth() >= 8) ? currDate.getFullYear().toString().substring(-2) : (currDate.getFullYear() - 1).toString().substring(2, 5);
 
     // decontruct the request body
-    const { id, passwd, format = "PDF", year = currYear, max = 11 } = req.body;
-
+    const { id, passwd, format = "PDF", year = currYear } = req.body;
+    const max = await getCurrEx(currYear);
     // url, request object & build params because request is type x-www-form-urlencoded, not application/json
     const obj = {
         id: id,
@@ -53,10 +59,10 @@ exports.server = (req, res) => {
     // set up parameters and url 
     const params = qs.stringify(obj);
     const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(year)}/QuerySheet`;
-    for (let i = 1; i < max; i++) {
+    for (let i = 1; i <= max; i++) {
         // set up file handling & response stuff
         const filename = `Ex-${jsStringEscape(i)}.pdf`;
-        const path = Path.resolve(__dirname, "cache", filename);
+        const path = Path.resolve("cache", filename);
         const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
 
         // does it exist? if not, download it to cache
@@ -92,4 +98,15 @@ exports.server = (req, res) => {
 
     // send the link array
     res.send(linkArr);
+}
+
+const getCurrEx = async (year) => {
+    const url = `https://www2.math.rwth-aachen.de/DS${jsStringEscape(year)}/exquery.html`;
+    const response = await axios.get(url);
+
+    const doc = new jsdom.JSDOM(response.data);
+    const element = doc.window.document.getElementsByTagName("form")[0].lastElementChild.lastElementChild;
+    value = element.value;
+
+    return Number(value);
 }
