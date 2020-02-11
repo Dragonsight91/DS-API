@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const config = require('./common/config/env.config');
 
@@ -8,7 +7,9 @@ const ResultsRouter = require('./endpoints/results/routes.config');
 const ExirciseRouter = require('./endpoints/exercise/routes.config');
 
 // configure the server
-app.use(function (req, res, next) {
+const app = express();
+
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST'); // ONLY ALLOW POST
     res.header('Access-Control-Expose-Headers', 'Content-Length');
