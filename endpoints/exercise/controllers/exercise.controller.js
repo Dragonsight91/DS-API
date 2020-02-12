@@ -11,8 +11,8 @@ exports.server = (req, res) => {
     const { exNum } = req.params;
     const { id, passwd, format="PDF", year=currYear} = req.body;
     // set up file handling
-    const path = Path.resolve("../../", "cache", `Ex-${jsStringEscape(exNum)}.pdf`);
-
+    const path = Path.resolve("/tmp/", `Ex-${jsStringEscape(exNum)}.pdf`);
+    
     // url, request object & build params because request is type x-www-form-urlencoded, not application/json
     const obj = {
         id: id,
@@ -68,7 +68,7 @@ exports.cache = (req, res) => {
     const { exNum } = req.params;
     const { format } = req.query;
     // set up file handling
-    const path = Path.resolve("../../", "cache" `Ex-${jsStringEscape(exNum)}.pdf`);
+    const path = Path.resolve("/tmp/", `Ex-${jsStringEscape(exNum)}.pdf`);
 
     fs.access(path, fs.F_OK, (err) => {
         if(err){
