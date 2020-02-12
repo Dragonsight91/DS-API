@@ -1,8 +1,11 @@
-var qs = require('qs');
+const qs = require('qs');
 const fs = require('fs');
-const Path = require('path')
-var axios = require('axios');
+const Path = require('path');
+const axios = require('axios');
 const jsStringEscape = require('js-string-escape');
+
+// custom modules
+const misc = require('./misc.module');
 
 // POST 
 exports.server = (req, res) => {
@@ -43,14 +46,14 @@ exports.server = (req, res) => {
                         fs.writeFile(path, { flag: 'a+' }, (err) => {
                             const writer = fs.createWriteStream(path);
                             writer.on('close', () => {
-                                sendFile(path, req.body.exNum, res);
+                                misc.sendFile(path, req.body.exNum, res);
                             });
                             response.data.pipe(writer);
                         });
                     }
                 );
             } else {
-                sendFile(path, req.body.exNum, res);
+                misc.sendFile(path, req.body.exNum, res);
             }
         })
     } else {
@@ -74,29 +77,12 @@ exports.cache = (req, res) => {
         if(err){
             res.sendStatus(404);
         }else{
-            sendFile(path, exNum, res);
+            misc.sendFile(path, exNum, res);
         }
     });
 
-}
-
-
-const sendFile = (path, num, res) => {
-    // read the file
-    const stat = fs.statSync(path);
-    reader = fs.createReadStream(path);
-
-    // set header
-    resHeader = {
-        "Content-Length": stat.size,
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "attachment; filename=" + `Ex-${jsStringEscape(num)}.pdf`
-    };
-    res.writeHead(200, resHeader);
-
-    // send file
-    reader.pipe(res);
 };
+
 
 
 
