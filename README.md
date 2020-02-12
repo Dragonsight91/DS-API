@@ -5,9 +5,6 @@ This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aache
 
 # Endpoints
 ```
-======    ROOT  ENDPOINT   ======
-GET /   This will later respond with a nice Frontend
-
 ======  RESULTS ENDPOINTS  ======
 POST /results
 
