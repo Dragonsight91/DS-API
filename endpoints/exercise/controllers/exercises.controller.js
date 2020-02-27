@@ -24,7 +24,7 @@ exports.cache = async (req, res) => {
     for (let i = 1; i <= max; i++) {
         // set up file handling & response stuff
         const filename = `Ex-${jsStringEscape(i)}.pdf`;
-        const path = Path.resolve("cache", filename);
+        const path = Path.resolve("/tmp/", filename);
         const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
 
         // does it exist? if not, download it to cache
@@ -66,8 +66,8 @@ exports.server = async (req, res) => {
     for (let i = 1; i <= max; i++) {
         // set up file handling & response stuff
         const filename = `Ex-${jsStringEscape(i)}.pdf`;
-        const path = Path.resolve("cache", filename);
-        const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`;
+        const path = Path.resolve("/tmp/", filename);
+        const fileURL = `https://api-rwth-ds.herokuapp.com/exercise/${i}`
 
         // does it exist? if not, download it to cache
         fs.access(path, fs.F_OK, (err) => {
