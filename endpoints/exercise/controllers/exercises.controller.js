@@ -2,7 +2,6 @@ const qs = require('qs');
 const fs = require('fs');
 const Path = require('path');
 const axios = require('axios');
-const jsdom = require('jsdom');
 const jsStringEscape = require('js-string-escape');
 
 // custom functions

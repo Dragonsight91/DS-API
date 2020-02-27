@@ -1,5 +1,5 @@
+const fs = require('fs');
 const axios = require('axios');
-const jsdom = require("jsdom");
 const jsStringEscape = require('js-string-escape');
 
 exports.getCurrEx = async (year) => {
