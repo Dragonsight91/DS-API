@@ -1,4 +1,4 @@
-# DS-API endpoint
+# DS-API endpoint (DEPRECATED)
 
 This api gives an endpoint to the [RWTH DS Website](https://www2.math.rwth-aachen.de/DS19) because i got sick of logging in every time. It will be hosted on heroku.
 - API URL: https://api-rwth-ds.herokuapp.com 
