@@ -117,7 +117,7 @@
     "mongoose": "^5.8.11",
     "mongoose-legacy-pluralize": "^1.0.2",
     "mpath": "^0.6.0",
-    "mquery": "^3.2.2",
+    "mquery": "^3.2.3",
     "ms": "^2.1.2",
     "negotiator": "^0.6.2",
     "node-uuid": "^1.4.8",
